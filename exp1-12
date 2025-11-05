@@ -1,5 +1,7 @@
-1>a
-#include <bits/stdc++.h>
+1a
+
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Student {
@@ -7,220 +9,286 @@ class Student {
     string name, cls;
 public:
     void accept() {
-        cout << "Enter roll_no name class: ";
-        cin >> roll_no >> ws; getline(cin, name); getline(cin, cls);
+        cin >> roll_no;
+        cin.ignore();
+        getline(cin, name);
+        getline(cin, cls);
     }
-    void display() const {
-        cout << "Roll: " << roll_no << "\nName: " << name << "\nClass: " << cls << '\n';
+    void display() {
+        cout << roll_no << " " << name << " " << cls;
     }
 };
 
 int main() {
     Student s;
     s.accept();
-    cout << "\n-- Student Details --\n";
     s.display();
 }
-b>
-#include <bits/stdc++.h>
+
+
+1b
+
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Book {
 public:
     string name;
-    double price;
     int pages;
+    double price;
     void accept() {
-        cout << "Enter book_name, price, pages: ";
         getline(cin, name);
-        cin >> price >> pages; cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin >> price >> pages;
+        cin.ignore();
     }
 };
 
 int main() {
     Book b1, b2;
-    cout << "Book 1:\n"; b1.accept();
-    cout << "Book 2:\n"; b2.accept();
-    cout << "\nCostlier book: " << (b1.price >= b2.price ? b1.name : b2.name) << '\n';
+    b1.accept();
+    b2.accept();
+    if (b1.price >= b2.price) cout << b1.name;
+    else cout << b2.name;
 }
-c>
-#include <bits/stdc++.h>
+
+
+1c
+
+#include <iostream>
 using namespace std;
 
 class Time {
-    int h{}, m{}, s{};
+    int h, m, s;
 public:
-    void acceptHHMMSS() {
-        cout << "Enter time (HH:MM:SS): ";
-        char c1, c2; cin >> h >> c1 >> m >> c2 >> s;
+    void read() {
+        char c1, c2;
+        cin >> h >> c1 >> m >> c2 >> s;
     }
-    int toSeconds() const { return h*3600 + m*60 + s; }
+    int toSeconds() { return h * 3600 + m * 60 + s; }
 };
 
 int main() {
-    Time t; t.acceptHHMMSS();
-    cout << "Total seconds = " << t.toSeconds() << '\n';
+    Time t;
+    t.read();
+    cout << t.toSeconds();
 }
-2a>
-#include <bits/stdc++.h>
+
+
+2a
+
+#include <iostream>
+#include <string>
 using namespace std;
 
 class City {
 public:
-    string name; long long population{};
+    string name;
+    long population;
     void accept() {
-        cout << "Name and population: ";
-        getline(cin, name); cin >> population; cin.ignore();
+        getline(cin, name);
+        cin >> population;
+        cin.ignore();
     }
 };
 
 int main() {
-    const int N = 5;
-    vector<City> v(N);
-    for (int i=0;i<N;i++){ cout << "City " << i+1 << ":\n"; v[i].accept(); }
-    auto it = max_element(v.begin(), v.end(),
-        [](const City& a, const City& b){ return a.population < b.population; });
-    cout << "Highest population: " << it->name << " (" << it->population << ")\n";
+    City c[5];
+    for (int i = 0; i < 5; i++) c[i].accept();
+    int idx = 0;
+    for (int i = 1; i < 5; i++) if (c[i].population > c[idx].population) idx = i;
+    cout << c[idx].name;
 }
-2b>
-#include <bits/stdc++.h>
+
+
+2b
+
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Account {
 public:
-    string acc_no; double balance{};
-    void accept() {
-        cout << "AccountNo and Balance: ";
-        cin >> acc_no >> balance;
-    }
-    void addInterestIfEligible() { if (balance >= 5000) balance *= 1.10; }
-    void display() const { cout << acc_no << " -> " << fixed << setprecision(2) << balance << '\n'; }
+    string accno;
+    double bal;
+    void accept() { cin >> accno >> bal; }
+    void interest() { if (bal >= 5000) bal = bal * 1.10; }
+    void show() { cout << accno << " " << bal << "\n"; }
 };
 
 int main() {
-    const int N = 10;
-    vector<Account> a(N);
-    for (int i=0;i<N;i++){ a[i].accept(); }
-    cout << "\nAfter applying 10% interest (>=5000):\n";
-    for (auto& x : a){ x.addInterestIfEligible(); x.display(); }
+    Account a[10];
+    for (int i = 0; i < 10; i++) a[i].accept();
+    for (int i = 0; i < 10; i++) { a[i].interest(); a[i].show(); }
 }
-2c>#include <bits/stdc++.h>
+
+
+2c
+
+#include <iostream>
+#include <string>
 using namespace std;
 
-struct Staff {
+class Staff {
+public:
     string name, post;
-    void accept(){ cout << "Name: "; getline(cin,name); cout << "Post: "; getline(cin,post); }
+    void accept() { getline(cin, name); getline(cin, post); }
 };
 
 int main() {
-    const int N = 5; vector<Staff> s(N);
-    for(int i=0;i<N;i++){ cout << "Staff " << i+1 << '\n'; s[i].accept(); }
-    cout << "\nHODs:\n";
-    for (auto& x : s){
-        string p = x.post; for(char& c: p) c = tolower(c);
-        if (p == "hod") cout << x.name << '\n';
-    }
+    Staff s[5];
+    for (int i = 0; i < 5; i++) s[i].accept();
+    for (int i = 0; i < 5; i++) if (s[i].post == "HOD") cout << s[i].name << "\n";
 }
-3a>
-#include <bits/stdc++.h>
+
+
+3a
+
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Book {
-    string title, author; double price{};
+    string title, author;
+    double price;
 public:
-    void accept(){ cout << "Title: "; getline(cin,title); cout << "Author: "; getline(cin,author); cout << "Price: "; cin >> price; }
-    void display() const{ cout << "Title: " << title << "\nAuthor: " << author << "\nPrice: " << price << '\n'; }
+    void accept() { getline(cin, title); getline(cin, author); cin >> price; }
+    void show() { cout << title << " " << author << " " << price; }
 };
 
 int main() {
-    Book b, *ptr = &b;
-    ptr->accept();
-    cout << "\n-- Book --\n";
-    ptr->display();
+    Book b, *p = &b;
+    p->accept();
+    p->show();
 }
-3b>
-#include <bits/stdc++.h>
+
+
+3b
+
+#include <iostream>
 using namespace std;
 
 class Student {
-    int roll; double percentage;
+    int roll;
+    double per;
 public:
-    Student& accept(){ cout << "Roll and Percentage: "; cin >> roll >> percentage; return *this; } // return *this
-    const Student& display() const { cout << "Roll: " << roll << ", %: " << percentage << '\n'; return *this; }
+    Student& accept() { cin >> roll >> per; return *this; }
+    Student& display() { cout << roll << " " << per; return *this; }
 };
 
 int main() {
-    Student().accept().display(); // chained via 'this'
+    Student().accept().display();
 }
-3c>
-#include <bits/stdc++.h>
+
+
+3c
+
+#include <iostream>
 using namespace std;
 
 class Outer {
-    int secret{42};
+    int secret;
 public:
+    Outer() { secret = 100; }
     class Inner {
     public:
-        void showOuter(const Outer& o) { // needs an Outer object
-            cout << "Outer.secret = " << o.secret << '\n';
-        }
+        void show(Outer& o) { cout << o.secret; }
     };
 };
 
 int main() {
-    Outer o; Outer::Inner in;
-    in.showOuter(o);
+    Outer o;
+    Outer::Inner in;
+    in.show(o);
 }
-4a>
-#include <bits/stdc++.h>
+4a
+
+#include <iostream>
 using namespace std;
 
-class Result1 { public: double marks{}; void read(){ cout << "Result1 marks: "; cin >> marks; } };
-class Result2 { public: double marks{}; void read(){ cout << "Result2 marks: "; cin >> marks; } };
+class Result1 {
+public:
+    int m;
+    void get() { cin >> m; }
+};
 
-double average(Result1 r1, Result2 r2){ return (r1.marks + r2.marks) / 2.0; }
+class Result2 {
+public:
+    int m;
+    void get() { cin >> m; }
+};
+
+float avg(Result1 a, Result2 b) {
+    return (a.m + b.m) / 2.0;
+}
 
 int main() {
-    Result1 r1; Result2 r2; r1.read(); r2.read();
-    cout << "Average = " << average(r1, r2) << '\n';
+    Result1 r1;
+    Result2 r2;
+    r1.get();
+    r2.get();
+    cout << avg(r1, r2);
 }
-4b>
-#include <bits/stdc++.h>
+
+
+4b
+
+#include <iostream>
 using namespace std;
 
-class A; class B;
+class B;
 
-int greatest(const A&, const B&); // forward
+class A {
+    int n;
+public:
+    A(int x = 0) { n = x; }
+    friend int big(A, B);
+};
 
-class A { int n; public: A(int x=0):n(x){} friend int greatest(const A&, const B&); };
-class B { int n; public: B(int x=0):n(x){} friend int greatest(const A&, const B&); };
+class B {
+    int n;
+public:
+    B(int x = 0) { n = x; }
+    friend int big(A, B);
+};
 
-int greatest(const A& a, const B& b){ return a.n > b.n ? a.n : b.n; }
-
-int main(){
-    int x,y; cout << "Enter two numbers:\n"; cin >> x >> y;
-    A a(x); B b(y);
-    cout << "Greatest = " << greatest(a,b) << '\n';
+int big(A a, B b) {
+    return a.n > b.n ? a.n : b.n;
 }
-4c>
-#include <bits/stdc++.h>
+
+int main() {
+    int x, y;
+    cin >> x >> y;
+    A a(x);
+    B b(y);
+    cout << big(a, b);
+}
+
+
+4c
+
+#include <iostream>
 using namespace std;
 
 class Sample {
-    int val;
+    int v;
 public:
-    Sample(int v=0):val(v){}
-    friend void swapValues(Sample& a, Sample& b);
-    void show() const { cout << val << ' '; }
+    Sample(int x = 0) { v = x; }
+    friend void swapv(Sample&, Sample&);
+    void show() { cout << v << " "; }
 };
 
-void swapValues(Sample& a, Sample& b){ std::swap(a.val, b.val); }
+void swapv(Sample& a, Sample& b) {
+    int t = a.v;
+    a.v = b.v;
+    b.v = t;
+}
 
 int main() {
-    Sample s1(10), s2(99);
-    cout << "Before: "; s1.show(); s2.show(); cout << '\n';
-    swapValues(s1, s2);
-    cout << "After:  "; s1.show(); s2.show(); cout << '\n';
+    Sample s1(5), s2(10);
+    swapv(s1, s2);
+    s1.show();
+    s2.show();
 }
 5a
 
